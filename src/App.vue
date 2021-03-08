@@ -1,28 +1,29 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+  <v-app>
+    <v-main>
+      <v-row>
+        <v-col :cols="12" :md="8" :lg="4">
+          <annual-income :annualIncome="annualIncome" />
+        </v-col>
+        <v-col :cols="12" :md="8" :lg="4">
+          <expenses @expense-submit="addExpense" :expenses="monthlyExpenses" />
+        </v-col>
+      </v-row>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import AnnualIncome from "./components/AnnualIncome";
+import Expenses from "./components/Expenses";
 
 export default {
-  name: "App",
-  components: {
-    HelloWorld
-  }
+  components: { AnnualIncome, Expenses },
+  data() {
+    return {
+      annualIncome: 0,
+      monthlyExpenses: [],
+    };
+  },
 };
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
