@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title> Monthly Expenses</v-card-title>
+    <v-card-title class="deep-orange--text"> Monthly Expenses</v-card-title>
     <v-form @submit.prevent="handleSubmit">
       <v-row>
         <v-col :sm="5">
@@ -34,6 +34,7 @@ export default {
       this.name = "";
       this.amount = null;
     },
+    saveExpenses() {},
   },
 };
 </script>
