@@ -1,9 +1,16 @@
 <template>
   <v-card>
-    <v-card-title class="deep-orange--text">Annual Income</v-card-title>
-    <v-form @submit.prevent="saveIncome">
-      <v-text-field @blur="saveIncome" outlined prefix="$" v-model="inputVal" />
-    </v-form>
+    <v-card-text>
+      <v-card-title class="deep-orange--text">Annual Income</v-card-title>
+      <v-form @submit.prevent="saveIncome">
+        <v-text-field
+          @blur="saveIncome"
+          outlined
+          prefix="$"
+          v-model="inputVal"
+        />
+      </v-form>
+    </v-card-text>
   </v-card>
 </template>
 

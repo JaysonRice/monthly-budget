@@ -10,7 +10,7 @@
         </v-col>
 
         <v-col :cols="12" :md="8" :lg="4">
-          <income-card title="Monthly Annual" :netAmount="monthlyNet" />
+          <income-card title="Monthly Net" :netAmount="monthlyNet" />
         </v-col>
         <v-col :cols="12" :md="8" :lg="4">
           <income-card title="Annual Net" :netAmount="annualNet" />
@@ -45,7 +45,9 @@ export default {
     const existingIncome = JSON.parse(localStorage.getItem("annualIncome"));
     const existingExpenses = localStorage.getItem("monthlyExpenses");
     this.annualIncome = existingIncome || 0;
-    this.monthlyExpenses = existingExpenses || [];
+    if (existingExpenses) {
+      this.monthlyExpenses = JSON.parse(existingExpenses);
+    }
   },
   methods: {
     changeIncome(newIncome) {
@@ -65,12 +67,15 @@ export default {
       return this.annualIncome / 12;
     },
     totalMonthlyExpenses() {
-      return this.monthlyExpenses.reduce((a, b) => a + b, 0);
+      return this.monthlyExpenses.reduce((total, month) => {
+        return total + month.amount;
+      }, 0);
     },
     annualExpenses() {
-      return this.totalMonthlyExpenses / 12;
+      return this.totalMonthlyExpenses * 12;
     },
     monthlyNet() {
+      debugger;
       return this.monthlyIncome - this.totalMonthlyExpenses;
     },
     annualNet() {
