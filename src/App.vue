@@ -1,30 +1,30 @@
 <template>
   <v-app>
-    <v-main>
-      <v-row>
-        <v-col :cols="12" :md="4">
+    <v-main class="pa-3 blue-grey lighten-4">
+      <v-row justify="center">
+        <v-col :cols="12" :md="8" :lg="4">
           <annual-income
             @income-change="changeIncome"
             :annualIncome="annualIncome"
           />
         </v-col>
 
-        <v-col :cols="12" :md="4">
+        <v-col :cols="12" :md="6" :lg="4">
           <income-card title="Monthly Net" :netAmount="monthlyNet" />
         </v-col>
-        <v-col :cols="12" :md="4">
+        <v-col :cols="12" :md="6" :lg="4">
           <income-card title="Annual Net" :netAmount="annualNet" />
         </v-col>
       </v-row>
       <v-row>
-        <v-col :cols="12" :lg="6">
+        <v-col :cols="12" :md="6">
           <expenses
             @expense-submit="exspenseAdded"
             @expense-delete="exspenseDeleted"
             :expenses="monthlyExpenses"
           />
         </v-col>
-        <v-col :cols="12" :lg="6">
+        <v-col :cols="12" :md="6">
           <pie :expenses="monthlyExpenses" :totalAmount="annualExpenses" />
         </v-col>
       </v-row>
@@ -47,9 +47,13 @@ export default {
     };
   },
   created() {
-    const existingIncome = JSON.parse(localStorage.getItem("annualIncome"));
+    const existingAnnual = localStorage.getItem("annualIncome");
+
+    if (existingAnnual) {
+      this.annualIncome = parseFloat(existingAnnual);
+    }
+
     const existingExpenses = localStorage.getItem("monthlyExpenses");
-    this.annualIncome = existingIncome || 0;
     if (existingExpenses) {
       this.monthlyExpenses = JSON.parse(existingExpenses);
     }
@@ -90,10 +94,10 @@ export default {
       return this.totalMonthlyExpenses * 12;
     },
     monthlyNet() {
-      return this.monthlyIncome - this.totalMonthlyExpenses;
+      return (this.monthlyIncome - this.totalMonthlyExpenses).toFixed(2);
     },
     annualNet() {
-      return this.annualIncome - this.annualExpenses;
+      return this.annualIncome - this.annualExpenses.toFixed(2);
     },
   },
 };

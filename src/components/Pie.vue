@@ -1,6 +1,15 @@
 <template>
-  <v-card>
-    <apexchart type="pie" :options="options" :series="series"></apexchart>
+  <v-card height="100%">
+    <v-card-title class="deep-orange--text"
+      >Monthly Expense Breakdown</v-card-title
+    >
+
+    <apexchart
+      type="pie"
+      :options="options"
+      :series="series"
+      height="300"
+    ></apexchart>
   </v-card>
 </template>
 

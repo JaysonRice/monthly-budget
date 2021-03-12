@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title class="deep-orange--text"> Monthly Expenses</v-card-title>
-    <v-card-text>
+    <v-card-text class="expensesContainer">
       <v-simple-table :height="200">
         <template v-slot:default>
           <thead>
@@ -13,7 +13,7 @@
           <tbody>
             <tr v-for="expense in expenses" :key="expense.name">
               <td>{{ expense.name }}</td>
-              <td>{{ expense.amount }}</td>
+              <td>${{ expense.amount }}</td>
               <td class="text-right">
                 <v-btn
                   icon
@@ -36,10 +36,23 @@
       <v-form @submit.prevent="handleSubmit">
         <v-row>
           <v-col :sm="5">
-            <v-text-field outlined label="Expense Name" v-model="name" />
+            <v-text-field
+              color="deep-orange"
+              outlined
+              label="Expense Name"
+              v-model="name"
+              dense
+            />
           </v-col>
           <v-col :sm="5">
-            <v-text-field outlined label="Amount" prefix="$" v-model="amount" />
+            <v-text-field
+              color="deep-orange"
+              outlined
+              label="Amount"
+              prefix="$"
+              v-model="amount"
+              dense
+            />
           </v-col>
           <v-col :sm="2">
             <v-btn icon large color="deep-orange" dark type="submit">
@@ -74,4 +87,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.expensesContainer {
+  padding-bottom: 0.8em;
+}
+</style>

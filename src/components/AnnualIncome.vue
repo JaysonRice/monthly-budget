@@ -1,9 +1,10 @@
 <template>
-  <v-card>
+  <v-card height="100%">
     <v-card-title class="deep-orange--text">Annual Income</v-card-title>
     <v-card-text>
       <v-form @submit.prevent="saveIncome">
         <v-text-field
+          color="deep-orange"
           @blur="saveIncome"
           outlined
           prefix="$"

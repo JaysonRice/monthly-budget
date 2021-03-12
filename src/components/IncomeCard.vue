@@ -1,10 +1,9 @@
 <template>
-  <v-card>
+  <v-card height="100%">
     <v-card-title class="deep-orange--text">{{ title }}</v-card-title>
+
     <v-card-text>
-      <v-card-text>
-        <h1 :class="netStatus">{{ displayAmount }}</h1>
-      </v-card-text>
+      <h1 class="net-amount pb-5" :class="netStatus">${{ displayAmount }}</h1>
     </v-card-text>
   </v-card>
 </template>
@@ -23,4 +22,10 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.net-amount {
+  font-size: 4em;
+  margin-top: 20px;
+  text-align: center;
+}
+</style>
