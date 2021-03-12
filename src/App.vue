@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-main class="pa-3 blue-grey lighten-4">
+    <v-main class="pa-3 green lighten-2">
       <v-row justify="center">
         <v-col :cols="12" :md="8" :lg="4">
           <annual-income

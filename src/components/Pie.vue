@@ -21,7 +21,27 @@ export default {
       return this.expenses.map((e) => e.amount);
     },
     options() {
-      return { labels: this.expenses.map((e) => e.name) };
+      return {
+        labels: this.expenses.map((e) => e.name),
+        colors: [
+          "#FF8A65",
+          "#FDD835",
+          "#81C784",
+          "#F4511E",
+          "#FFF176",
+          "#43A047",
+          "#BF360C",
+          "#2E7D32",
+          "#F9A825",
+        ],
+        // theme: {
+        //   palette: "palette10",
+        //   monochrome: {
+        //     enabled: true,
+        //     color: "#FDD835",
+        //   },
+        // },
+      };
     },
   },
 };
