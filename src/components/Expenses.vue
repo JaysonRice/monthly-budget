@@ -1,7 +1,7 @@
 <template>
   <v-card>
+    <v-card-title class="deep-orange--text"> Monthly Expenses</v-card-title>
     <v-card-text>
-      <v-card-title class="deep-orange--text"> Monthly Expenses</v-card-title>
       <v-simple-table :height="200">
         <template v-slot:default>
           <thead>
@@ -18,11 +18,11 @@
                 <v-btn
                   icon
                   large
-                  color="red"
+                  color="deep-orange"
                   dark
                   @click="handleRemove(expense)"
                 >
-                  <v-icon>mdi-minus-circle</v-icon>
+                  <v-icon>mdi-minus-circle-outline</v-icon>
                 </v-btn>
               </td>
             </tr>
@@ -67,7 +67,9 @@ export default {
       this.name = "";
       this.amount = null;
     },
-    saveExpenses() {},
+    handleRemove(expense) {
+      this.$emit("expense-delete", expense);
+    },
   },
 };
 </script>

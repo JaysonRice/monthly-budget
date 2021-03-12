@@ -2,17 +2,17 @@
   <v-app>
     <v-main>
       <v-row>
-        <v-col :cols="12" :md="8" :lg="4">
+        <v-col :cols="12" :md="4">
           <annual-income
             @income-change="changeIncome"
             :annualIncome="annualIncome"
           />
         </v-col>
 
-        <v-col :cols="12" :md="8" :lg="4">
+        <v-col :cols="12" :md="4">
           <income-card title="Monthly Net" :netAmount="monthlyNet" />
         </v-col>
-        <v-col :cols="12" :md="8" :lg="4">
+        <v-col :cols="12" :md="4">
           <income-card title="Annual Net" :netAmount="annualNet" />
         </v-col>
       </v-row>
@@ -20,8 +20,12 @@
         <v-col :cols="12" :lg="6">
           <expenses
             @expense-submit="exspenseAdded"
+            @expense-delete="exspenseDeleted"
             :expenses="monthlyExpenses"
           />
+        </v-col>
+        <v-col :cols="12" :lg="6">
+          <pie :expenses="monthlyExpenses" :totalAmount="annualExpenses" />
         </v-col>
       </v-row>
     </v-main>
@@ -31,10 +35,11 @@
 <script>
 import AnnualIncome from "./components/AnnualIncome";
 import Expenses from "./components/Expenses";
-import IncomeCard from "./components/IncomeCard.vue";
+import IncomeCard from "./components/IncomeCard";
+import Pie from "./components/Pie";
 
 export default {
-  components: { AnnualIncome, Expenses, IncomeCard },
+  components: { AnnualIncome, Expenses, IncomeCard, Pie },
   data() {
     return {
       annualIncome: 0,
@@ -61,6 +66,16 @@ export default {
         JSON.stringify(this.monthlyExpenses)
       );
     },
+    exspenseDeleted(expenseToDelete) {
+      // Filter the deleted expense out of the array before setting local storage again
+      this.monthlyExpenses = this.monthlyExpenses.filter((e) => {
+        return e !== expenseToDelete;
+      });
+      localStorage.setItem(
+        "monthlyExpenses",
+        JSON.stringify(this.monthlyExpenses)
+      );
+    },
   },
   computed: {
     monthlyIncome() {
@@ -75,7 +90,6 @@ export default {
       return this.totalMonthlyExpenses * 12;
     },
     monthlyNet() {
-      debugger;
       return this.monthlyIncome - this.totalMonthlyExpenses;
     },
     annualNet() {
