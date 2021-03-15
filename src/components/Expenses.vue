@@ -31,9 +31,9 @@
       </v-simple-table>
       <v-divider></v-divider>
 
-      <v-card-subtitle> Monthly Expenses</v-card-subtitle>
+      <v-card-subtitle> Add Expense</v-card-subtitle>
 
-      <v-form @submit.prevent="handleSubmit">
+      <v-form @submit.prevent="handleSubmit" ref="expenseForm">
         <v-row>
           <v-col :sm="5">
             <v-text-field
@@ -41,6 +41,7 @@
               outlined
               label="Expense Name"
               v-model="name"
+              :rules="validators.name"
               dense
             />
           </v-col>
@@ -48,9 +49,12 @@
             <v-text-field
               color="deep-orange"
               outlined
+              type="number"
               label="Amount"
               prefix="$"
               v-model="amount"
+              onkeydown="return event.keyCode !== 69"
+              :rules="validators.amount"
               dense
             />
           </v-col>
@@ -72,13 +76,29 @@ export default {
     return {
       name: "",
       amount: null,
+      validators: {
+        name: [(val) => !!val || "Name of expense is required"],
+        amount: [
+          (val) => !!val || "Expense must have an amount",
+          (val) => val > 0 || "Expense must not be negative",
+        ],
+      },
     };
   },
   methods: {
     handleSubmit() {
-      this.$emit("expense-submit", { name: this.name, amount: +this.amount });
+      const isValid = this.$refs.expenseForm.validate();
+      if (!isValid) {
+        // Form is not valid. Exit the method
+        return;
+      }
+      this.$emit("expense-submit", {
+        name: this.name,
+        amount: +this.amount,
+      });
       this.name = "";
       this.amount = null;
+      this.$refs.expenseForm.resetValidation();
     },
     handleRemove(expense) {
       this.$emit("expense-delete", expense);

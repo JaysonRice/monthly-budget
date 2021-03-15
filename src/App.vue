@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-main class="pa-3 green lighten-2">
+    <v-main class="pa-3 green lighten-3">
       <v-row justify="center">
         <v-col :cols="12" :md="8" :lg="4">
           <annual-income
@@ -97,7 +97,7 @@ export default {
       return (this.monthlyIncome - this.totalMonthlyExpenses).toFixed(2);
     },
     annualNet() {
-      return this.annualIncome - this.annualExpenses.toFixed(2);
+      return (this.annualIncome - this.annualExpenses).toFixed(2);
     },
   },
 };

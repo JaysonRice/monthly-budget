@@ -34,13 +34,6 @@ export default {
           "#2E7D32",
           "#F9A825",
         ],
-        // theme: {
-        //   palette: "palette10",
-        //   monochrome: {
-        //     enabled: true,
-        //     color: "#FDD835",
-        //   },
-        // },
       };
     },
   },

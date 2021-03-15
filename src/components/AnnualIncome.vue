@@ -6,6 +6,8 @@
         <v-text-field
           color="deep-orange"
           @blur="saveIncome"
+          onkeydown="return event.keyCode !== 69"
+          type="number"
           outlined
           prefix="$"
           v-model="inputVal"
